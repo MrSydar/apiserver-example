@@ -15,7 +15,7 @@ func main() {
 	e.Use(middleware.Logger())
 
 	routes.ApplyCallback(e)
-	routes.ApplyAccount(e)
+	routes.ApplyNotes(e)
 
 	e.Logger.Fatal(e.Start(":9000"))
 }

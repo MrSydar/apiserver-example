@@ -15,6 +15,7 @@ import (
 var DB *mongo.Client
 var Collections struct {
 	Accounts *mongo.Collection
+	Notes    *mongo.Collection
 }
 
 func connectDB() (*mongo.Client, error) {
@@ -46,6 +47,7 @@ func Init() error {
 
 	databaseName := os.Getenv(envnames.DatabaseName)
 	Collections.Accounts = DB.Database(databaseName).Collection(os.Getenv(envnames.AccountCollection))
+	Collections.Notes = DB.Database(databaseName).Collection(os.Getenv(envnames.NoteCollection))
 
 	return nil
 }

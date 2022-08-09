@@ -1,4 +1,4 @@
-package middleware
+package middlewares
 
 import (
 	"context"
@@ -27,8 +27,9 @@ func AssociateAccountWithRequest(next echo.HandlerFunc) echo.HandlerFunc {
 		account := models.Account{}
 		if err := database.Collections.Accounts.FindOne(context.Background(), bson.M{"email": email}).Decode(&account); err != nil {
 			if err == mongo.ErrNoDocuments {
+				account.ID = primitive.NewObjectID()
 				account.Email = email
-				result, err := database.Collections.Accounts.InsertOne(context.Background(), account) // TODO make email field unique in the mongo db
+				result, err := database.Collections.Accounts.InsertOne(context.Background(), account)
 				if err != nil {
 					return fmt.Errorf("failed to insert account resource: %v", err)
 				}

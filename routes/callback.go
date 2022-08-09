@@ -8,5 +8,5 @@ import (
 )
 
 func ApplyCallback(e *echo.Echo) {
-	e.GET(auth0.CallbackEndpoint, controllers.FetchJWTToken)
+	e.GET(auth0.CallbackEndpoint, controllers.FetchJWT)
 }

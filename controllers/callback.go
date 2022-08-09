@@ -13,7 +13,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func FetchJWTToken(c echo.Context) error {
+func FetchJWT(c echo.Context) error {
 	code := c.QueryParam("code")
 	if code == "" {
 		return responses.Message(c, http.StatusBadRequest, "code parameter was not provided")
