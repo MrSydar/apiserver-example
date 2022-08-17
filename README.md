@@ -3,19 +3,21 @@
 This is an example of API server written using [Echo](https://echo.labstack.com/) framework.
 It uses [Auth0](https://auth0.com/) service to authenticate users and [mongodb](https://www.mongodb.com/) to store associated account resources.
 
+You can also read a step-by-step guide for implementation of this API: [link](https://dev.to/mrsydar/how-to-implement-a-basic-crud-in-golang-protected-by-auth0-7je).
+
 ## How it works
 
 ### Authentication
 
-When user lands on Auth0 login page associated with your application, 
+When a user lands on Auth0 login page associated with your application, 
 the service authenticates him with entered credentials or in some other way (e.g. Google account).
 
-After that, the user receives a special code and gets redirected to api server http://localhost:9000/callback endpoint.
+After that, the user receives a special code and gets redirected to API server http://localhost:9000/callback endpoint.
 
-The callback endpoint reads mentioned code, sends forms a request with received code and some vulnerable data like application secret,
+The callback endpoint reads the mentioned code, sends forms a request with received code and some vulnerable data like application secret,
 and sends it to Auth0.
 
-Finally, if provided data is valid, the service sends a response with JWT token which should be returned to user client as a callback response.
+Finally, if provided data is valid, the service sends a response with JWT token which should be returned to the user client as a callback response.
 
 From this point, the user can use the received JWT token to pass API server authentication and get access to protected resources.
 
@@ -25,8 +27,10 @@ The idea is to have an account resource associated with each authenticated user,
 
 After standard JWT verification (HS256 signing algorithm), the custom middleware is used to associate user with existing account resource
 stored in the database by an email value provided in the token. If there's no account resource that could be associated, the new one is created.
-Finally, an account identifier is put into the request context, so api server could use this value to allow, restrict and filter resources,
+Finally, an account identifier is put into the request context, so API server could use this value to allow, restrict and filter resources,
 which belong to the user.
+
+For this example, there is a `notes` resource which could belong only to one user. 
 
 ## How to run
 
