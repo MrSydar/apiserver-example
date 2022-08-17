@@ -68,7 +68,6 @@ func PostNote(c echo.Context) error {
 	}
 
 	note.ID = result.InsertedID.(primitive.ObjectID)
-	note.Owner = primitive.NilObjectID
 
 	return c.JSON(http.StatusCreated, note)
 }
